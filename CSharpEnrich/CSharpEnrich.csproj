@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTypeExtensionMethods\StringExtension.cs" />
+    <Compile Include="BaseTypeExtensionMethods\Utils.cs" />
     <Compile Include="CommonFunc\DataValidator.cs" />
+    <Compile Include="CommonFunc\ErrorExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
