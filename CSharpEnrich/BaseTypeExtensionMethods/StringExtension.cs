@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using static System.DataValidator;
 using static System.Net.Mime.MediaTypeNames;
 using static CSharpEnrich.BaseTypeExtensionMethods.Utils;
+using Newtonsoft.Json;
 
 namespace System
 {
@@ -69,6 +70,21 @@ namespace System
         {
             if (ignoreWhiteSpace) return !string.IsNullOrWhiteSpace(txt);
             else return !string.IsNullOrEmpty(txt);
+        }
+
+        /// <summary>
+        /// 将 txt 文本序列化成 T 类型的实例，失败时将返回 T 的 default 值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="txt"></param>
+        /// <returns></returns>
+        public static T ToInstance<T>(this string txt)
+        {
+            if (IsDefault(txt)) return default;
+
+            T t = JsonConvert.DeserializeObject<T>(txt);
+
+            return t;
         }
     }
 }
