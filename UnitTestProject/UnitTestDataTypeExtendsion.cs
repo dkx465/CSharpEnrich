@@ -20,7 +20,9 @@ namespace UnitTestProject
         [TestMethod]
         public void TestListToJson()
         {
-            
+            var o = new {a = 1, b = 2, c =3};
+            var list = new List<object>() { o,o,o};
+            Console.WriteLine(list.ToJson());
         }
 
     }

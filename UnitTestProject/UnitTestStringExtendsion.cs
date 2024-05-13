@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace UnitTestProject
@@ -26,13 +27,13 @@ namespace UnitTestProject
                     errCount++;
                     Console.WriteLine(ex.Message);
                 }
-                
+
             }
             Console.WriteLine($"执行{strs.Length}个用例，成功{strs.Length - errCount}个, 失败 {errCount} 个");
         }
 
         [TestMethod]
-        public void TestToBool() 
+        public void TestToBool()
         {
             foreach (var item in strs)
             {
@@ -54,6 +55,17 @@ namespace UnitTestProject
                     Console.WriteLine(ex.Message);
                 }
             }
+        }
+
+        [TestMethod]
+        public void TestToInstance()
+        {
+            var a = new { a = "a", b = "b" };
+            List<object> list = new List<object>() { a,a,a};
+            var type = a.GetType();
+            string json = list.ToJson();
+            var b = json.ToInstance<List<object>>();
+         Console.WriteLine(b.ToJson());
         }
     }
 }
