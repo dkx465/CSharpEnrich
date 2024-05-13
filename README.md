@@ -35,7 +35,26 @@ bool res = DataValidator.IsDefault(o);
 Console.WriteLine(res); // True
 ```
 
+## API 列表
+
+- String
+  - ToInt
+  - ToLong
+  - ToDecimal
+  - ToDateTime
+  - ToBool
+  - ToInstance
+- DateTime
+  - ToTimeStamp
+- Object
+  - ToJson
+
 ## 注意事项
 
-- 在使用CSharpEnrich之前，请确保已经正确安装并配置了.NET环境。
+- 在使用`CSharpEnrich`之前，请确保已经正确安装并配置了.NET环境。
+
+  - `CSharpEnrich` 依赖 `Newtonsoft.json`
+
 - 请根据实际需求选择合适的方法进行数据转换和类型比对，避免不必要的错误。
+
+  
