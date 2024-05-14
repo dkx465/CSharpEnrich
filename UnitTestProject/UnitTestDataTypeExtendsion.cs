@@ -25,5 +25,11 @@ namespace UnitTestProject
             Console.WriteLine(list.ToJson());
         }
 
+        [TestMethod]
+        public void TestToJsonAndSign()
+        {
+            var o = new { a = 1, b = 2, c = 3 };
+            Console.WriteLine(o.ToJsonAndSign("dkx"));
+        }
     }
 }

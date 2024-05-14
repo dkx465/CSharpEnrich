@@ -67,5 +67,19 @@ namespace UnitTestProject
             var b = json.ToInstance<List<object>>();
          Console.WriteLine(b.ToJson());
         }
+
+        [TestMethod]
+        public void TestToMD5()
+        {
+            string str = "abc";
+            Console.WriteLine(str.ToMD5());
+        }
+
+        [TestMethod]
+        public void TestToBase64()
+        {
+            string str = "abc";
+            Console.WriteLine(str.ToBase64());
+        }
     }
 }

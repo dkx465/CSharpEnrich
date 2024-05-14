@@ -8,11 +8,14 @@ using static System.DataValidator;
 using static System.Net.Mime.MediaTypeNames;
 using static CSharpEnrich.BaseTypeExtensionMethods.Utils;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace System
 {
     public static class StringExtension
     {
+        public static SaltType SignDefaultSaltType { get; set; } = SaltType.Both;
+        public static string SignDefaultSalt { get; set; } = "dkx";
         /// <summary>
         /// 将 string 尝试转换为 int 类型
         /// 内部调用 int.TryParse 实现
@@ -85,6 +88,67 @@ namespace System
             T t = JsonConvert.DeserializeObject<T>(txt);
 
             return t;
+        }
+
+        /// <summary>
+        /// 将字符串转换为 byte 数组，内部使用Encoding.UTF8.GetBytes，
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <returns>如果传入的参数是默认值则返回null</returns>
+        public static byte[] ToBytes(this string txt)
+        {
+            if (IsDefault(txt)) return null;
+            return Encoding.UTF8.GetBytes(txt);
+        }
+
+        /// <summary>
+        /// 将字符串转换为base64编码
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <returns>如果传入的txt为默认值，则返回 string.Empty</returns>
+        public static string ToBase64(this string txt)
+        {
+            if (IsDefault(txt)) return string.Empty;
+            string base64String = Convert.ToBase64String(txt.ToBytes());
+            return base64String;
+        }
+
+        /// <summary>
+        /// 将字符串进行MD5加密,
+        /// 配置 StringExtension.SignDefaultSaltType 属性决定加盐的方式，
+        /// 配置 StringExtension.SignDefaultSalt 属性决定盐的默认值
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <param name="salt">对字符串加密时的盐值，不传则不加盐，盐值追加在字符串末尾</param>
+        /// <returns>如果传入的txt为默认值，则返回 string.Empty</returns>
+        public static string ToMD5(this string txt)
+        {
+            if (IsDefault(txt)) return string.Empty;
+            using (MD5 md5 = MD5.Create())
+            {
+                // 对字符串进行加盐
+                switch (StringExtension.SignDefaultSaltType)
+                {
+                    case SaltType.Append:
+                        txt += StringExtension.SignDefaultSalt;
+                        break;
+                    case SaltType.Prepend:
+                        txt = StringExtension.SignDefaultSalt + txt;
+                        break;
+                    case SaltType.Both:
+                        txt = $"{StringExtension.SignDefaultSalt}{txt}{StringExtension.SignDefaultSalt}";
+                        break;
+
+                }
+                var bytes = txt.ToBytes();
+                byte[] data = md5.ComputeHash(bytes);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sb.Append(data[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
         }
     }
 }
