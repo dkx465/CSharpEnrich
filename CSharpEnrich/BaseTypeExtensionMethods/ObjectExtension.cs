@@ -26,42 +26,5 @@ namespace System
             return JsonConvert.SerializeObject(o);
         }
 
-        /// <summary>
-        /// 将 JSON 字符串转换成 T 类型的实例
-        /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="json">json字符串</param>
-        /// <returns>转换失败返回 空串，成功返回对象实体</returns>
-        public static T ToObject<T>(this string json) where T : class
-        {
-            if (IsDefault(json))
-            {
-                return null;
-            }
-            var serializer = new JsonSerializer();
-            var sr = new StringReader(json);
-            var o = serializer.Deserialize(new JsonTextReader(sr), typeof(T));
-            var t = o as T;
-            return t;
-        }
-
-        /// <summary>
-        /// 将 JSON 字符串转换成 T 类型的实体集合
-        /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="json">json数组字符串</param>
-        /// <returns>转换失败返回 空串，成功返回对象实体集合</returns>
-        public static List<T> ToObjectList<T>(this string json) where T : class
-        {
-            if (IsDefault(json))
-            {
-                return null;
-            }
-            var serializer = new JsonSerializer();
-            var sr = new StringReader(json);
-            var o = serializer.Deserialize(new JsonTextReader(sr), typeof(List<T>));
-            var list = o as List<T>;
-            return list;
-        }
     }
 }
