@@ -39,15 +39,52 @@ Console.WriteLine(res); // True
 
 - String
   - ToInt
+  
+    - > 使用 int.TryParse 实现
   - ToLong
+  
+    - > 使用 long.TryParse 实现
   - ToDecimal
+  
+    - > 使用 decimal.TryParse 实现
   - ToDateTime
+  
+    - > 使用 DateTime.TryParse 实现
   - ToBool
-  - ToInstance
+  
+    - > 将字符串转换为 Bool 值，当值为 null、empty、"" 时，值为 False 反之为 True
+  - ToInstance<T>
+  
+    - > 将字符串序列化为 T 类型的实体，使用 JsonConvert.DeserializeObject<T>实现
+  - ToBytes
+  
+    - > 转换成 byte[] 数组，使用Encoding.UTF8.GetBytes() 实现
+  - ToBase64
+  
+    - > 转换成 base64 编码，使用Convert.ToBase64String() 实现
+  - ToMD5
+  
+    - > 将字符串进行MD5加密
+      >
+      > 配置 StringExtension.SignDefaultSaltType 属性决定加盐的方式
+      >
+      > 配置 StringExtension.SignDefaultSalt 属性决定盐的默认值
 - DateTime
   - ToTimeStamp
+  
+    - > 将日期转换为时间戳，1970-01-01 00:00:00 至传入 datetime 的秒数
 - Object
   - ToJson
+  
+    - > 将实体序列化为字符串，使用 JsonConvert.SerializeObject实现
+  - ToJsonAndSign
+  
+    - > 将实体转换成Json并进行MD5签名
+  
+      ```C#
+      object o = new {a = 1};
+      Console.WriteLine(o.ToJsonAndSign()); // {"a":1,"signature":"869c907b30795c8ceda1a1ff23d52773"}
+      ```
 
 ## 注意事项
 
