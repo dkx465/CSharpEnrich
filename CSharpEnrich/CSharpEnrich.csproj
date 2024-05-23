@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTypeExtensionMethods\DateTimeExtension.cs" />
+    <Compile Include="BaseTypeExtensionMethods\DecimalExtension.cs" />
     <Compile Include="BaseTypeExtensionMethods\ListExtension.cs" />
     <Compile Include="BaseTypeExtensionMethods\ObjectExtension.cs" />
     <Compile Include="BaseTypeExtensionMethods\StringExtension.cs" />

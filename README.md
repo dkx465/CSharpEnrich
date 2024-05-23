@@ -85,6 +85,13 @@ Console.WriteLine(res); // True
       object o = new {a = 1};
       Console.WriteLine(o.ToJsonAndSign()); // {"a":1,"signature":"869c907b30795c8ceda1a1ff23d52773"}
       ```
+  
+- Decimal
+
+  - ToChineseAmount
+
+    - > 将 decimal 格式的金额转换成中文大写金额，要求 [0 - 999999999999.9999] 之间，超出金额要求的范围时抛出异常
+
 
 ## 注意事项
 
